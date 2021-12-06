@@ -7,6 +7,7 @@
 #include <unistd.h>
 #include <sys/types.h>
 #include <sys/stat.h>
+#include <dirent.h>
 
 #define GRASS_C 1
 #define GOLD_C 2
@@ -45,6 +46,14 @@ char overwite_notification();
 
 int main(int argc, char *argv[])
 {
+	DIR* data = opendir("data");
+    if (!data) 
+    {
+		closedir(data);
+		printf("\nRequired game files not installed! Run the installer first!\n\n");
+		return 1;
+	}
+	closedir(data);
 	mkdir("data/saved_games", 0777);
 	mkdir("data/autosave", 0777);
 	bool debug=FALSE;
